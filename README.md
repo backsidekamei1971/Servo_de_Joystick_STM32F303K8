@@ -1,8 +1,14 @@
 # Servo_de_Joystick_STM32F303K8
-Mbed O2でないと動かない　ジョイスティックでサーボ首振り運動
+Mbed O2でないと動かない　
+
+ジョイスティックでサーボ首振り運動
+
 KeilStudioオンライン書込みで
 File➡︎New➡︎MbedProject➡︎Mbed OS2を選択
+
 main.cppのところに完全コピー
+
 ArduinoIDEなどと違って
 Buildボタンをクリックすると、binファイルが形成ダウンロードされ
+
 そのbinファイルをドラッグ&ドロップでSTM32マイコンボードに移植
