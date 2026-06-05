@@ -1,0 +1,31 @@
+#include "mbed.h"
+
+// Initialize components
+AnalogIn joyX(PA_0);    // Joystick X-axis connected to pin A0
+PwmOut servo(PB_0);     // Servo signal line connected to pin D9
+
+// Map function to scale a float from [in_min, in_max] to [out_min, out_max]
+float map(float x, float in_min, float in_max, float out_min, float out_max) {
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+int main() {
+    // Set standard RC servo PWM period (20ms)
+    servo.period_ms(20);
+    
+    while (true) {
+        // 1. Read joystick (value between 0.0 and 1.0)
+        float joyVal = joyX.read(); 
+        
+        // 2. Map joystick to desired pulse-width for 0 to 180 degrees
+        // Standard RC servos typically use 1000us (0°) to 2000us (180°)
+        float pulseWidth_us = map(joyVal, 0.0, 1.0, 1000.0, 2000.0);
+        
+        // 3. Send the signal to the servo
+        servo.pulsewidth_us(pulseWidth_us);
+        
+        // Small delay to allow the servo to move and prevent loop overload
+        wait_ms(10); 
+    }
+}
+
